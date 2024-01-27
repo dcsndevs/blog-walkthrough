@@ -18,10 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-<<<<<<< HEAD
-=======
     path("", include("blog.urls"), name="blog-urls"),
->>>>>>> refs/remotes/origin/main
     path('admin/', admin.site.urls),
     path('blog/', views_home.my_blog, name = 'blog'),
     path('summernote/', include('django_summernote.urls')),
