@@ -1,0 +1,71 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Bible Passage</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Populate books dropdown
+            $.get("{% url 'get_books' %}", function(data) {
+                var books = JSON.parse(data);
+                var bookSelect = $("#books");
+                $.each(books, function(index, book) {
+                    bookSelect.append($('<option>', {
+                        value: book.id,
+                        text: book.name
+                    }));
+                });
+            });
+
+            // Handle book selection change
+            $("#books").change(function() {
+                var bookId = $(this).val();
+                // Populate chapters dropdown based on selected book
+                $.get("{% url 'get_chapters' %}", {book_id: bookId}, function(data) {
+                    var chapters = JSON.parse(data);
+                    var chapterSelect = $("#chapters");
+                    chapterSelect.empty();
+                    $.each(chapters, function(index, chapter) {
+                        chapterSelect.append($('<option>', {
+                            value: chapter.chapter_number,
+                            text: "Chapter " + chapter.chapter_number
+                        }));
+                    });
+                });
+            });
+
+            // Handle chapter selection change
+            $("#chapters").change(function() {
+                var bookId = $("#books").val();
+                var chapterNumber = $(this).val();
+                // Populate verses dropdown based on selected book and chapter
+                $.get("{% url 'get_verses' %}", {book_id: bookId, chapter_number: chapterNumber}, function(data) {
+                    var verses = JSON.parse(data);
+                    var verseSelect = $("#verses");
+                    verseSelect.empty();
+                    $.each(verses, function(index, verse) {
+                        verseSelect.append($('<option>', {
+                            value: verse.verse_number,
+                            text: "Verse " + verse.verse_number + ": " + verse.text
+                        }));
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Select Bible Passage</h1>
+    <select id="books">
+        <option value="" disabled selected>Select Book</option>
+    </select>
+    <select id="chapters">
+        <option value="" disabled selected>Select Chapter</option>
+    </select>
+    <select id="verses">
+        <option value="" disabled selected>Select Verse</option>
+    </select>
+</body>
+</html>

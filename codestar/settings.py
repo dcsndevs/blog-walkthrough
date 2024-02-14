@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'blog',
     'about',
     'kjv',
+    'bible_app',
 ]
 
 SITE_ID = 1

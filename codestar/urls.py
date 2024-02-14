@@ -21,7 +21,7 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("about/", include("about.urls"), name="about-urls"),
     path('admin/', admin.site.urls),
-    # path("kjv/", include("kjv.urls"), name="create_post"),
+    path("bible_app/", include("bible_app.urls"), name="index"),
     path("kjv/", include("kjv.urls"), name="view_scriptures"),
     path('summernote/', include('django_summernote.urls')),
     path("", include("blog.urls"), name="blog-urls"),

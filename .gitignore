@@ -10,3 +10,6 @@ cloudinary_python.txt
 venv/
 blog/fixtures/ 
 kjv.json
+bible.json
+bible_data.json
+books_data.json
