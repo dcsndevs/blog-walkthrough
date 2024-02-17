@@ -1,0 +1,4 @@
+<!-- templates/verses_dropdown.html -->
+{% for verse in verses %}
+    <option value="{{ verse.verse_number }}">Verse {{ verse.verse_number }}: {{ verse.text }}</option>
+{% endfor %}
